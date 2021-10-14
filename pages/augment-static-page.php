@@ -7,7 +7,7 @@ if ( ! is_array( $augmentSnippets ) )
 
 $augmentCode = '';
 foreach ( $augmentSnippets as $snippetName ) {
-	$snippetFilePath = __DIR__ . '/../inc/snippets/' . $snippetName . '.php';
+	$snippetFilePath = __DIR__ . '/snippets/' . $snippetName . '.php';
 	$augmentCode .= file_get_contents( $snippetFilePath );
 }
 

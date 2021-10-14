@@ -1,74 +1,31 @@
 <?php
 /*
- *
- * This is template for the Home page
- *
+ |
+ | Home Page
+ |
  */
-require_once __DIR__ . '/../inc/above.php';
+
+require_once __ROOT__ . '/types/events/events.php';
+require_once __ROOT__ . '/types/news/news.php';
+require_once __ROOT__ . '/types/deals/deals.php';
+
+use BFS\Types\Events;
+use BFS\Types\News;
+use BFS\Types\Deals;
 
 
-
-$deals = getPostsOf( 'deals' );
-if ( cmsIsEnabled() ) {
-	foreach ( $deals as &$deal )
-		$deal[ 'permalink' ] = get_permalink( $deal[ 'ID' ] );
-	unset( $deal );
-}
-
-$events = getPostsOf( 'events', [
-	'orderBy' => 'meta_value',
-	'metaKey' => 'date',
-	'order' => 'DESC'
-] );
-if ( cmsIsEnabled() ) {
-	$now = date_create();
-	foreach ( $events as &$event ) {
-		$event[ 'permalink' ] = get_permalink( $event[ 'ID' ] );
-		$event[ 'date' ] = date_create( getContent( '', 'date', $event[ 'ID' ] ) );
-
-		$difference = $now->diff( $event[ 'date' ] );
-		$eventIsBeforeNow = $difference->invert ? true : false;
-		// $differenceInDays = (int) $difference->format( '%R%a' );
-		$differenceInDays = ( $eventIsBeforeNow ? -1 : 1 ) * $difference->d;
-		if ( $differenceInDays < 0 )
-			$event[ 'isBeforeToday' ] = true;
-		else if ( $differenceInDays === 0 ) {
-			if (
-				(int) $now->format( 'd' ) !== (int) $event[ 'date' ]->format( 'd' )
-					and
-				$eventIsBeforeNow
-			)
-				$event[ 'isBeforeToday' ] = true;
-		}
-		else
-			$event[ 'isBeforeToday' ] = false;
-	}
-	unset( $event );
-}
-
-$news = getPostsOf( 'news' );
-if ( cmsIsEnabled() ) {
-	foreach ( $news as &$newsPiece )
-		$newsPiece[ 'permalink' ] = get_permalink( $newsPiece[ 'ID' ] );
-	unset( $newsPiece );
-}
+$events = Events::getAll();
+$news = News::getAllExcludingUnlisted();
+$deals = Deals::getAll();
 
 ?>
 
 
 
+<?php require_once __ROOT__ . '/pages/partials/header.php'; ?>
 
 
-<!-- Sample Section -->
-<section class="sample-section">
-	<div class="container">
-		<div class="row">
-			<div class="columns small-12">
-			</div>
-		</div>
-	</div>
-</section>
-<!-- END: Sample Section -->
+
 
 
 <!-- Sticky Call Section -->
@@ -458,7 +415,7 @@ if ( cmsIsEnabled() ) {
 						<div class="phone-trap minimal phone-number">
 							<div class="block prefix-group" style="position: relative">
 								<select class="js_phone_country_code" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; opacity: 0">
-									<?php include __DIR__ . '/../inc/phone-country-codes.php' ?>
+									<?php include __ROOT__ . '/pages/snippets/phone-country-codes.php' ?>
 								</select>
 								<input class="prefix js_phone_country_code_label button" value="+91" style="pointer-events: none; width: 100%;">
 							</div>
@@ -573,7 +530,7 @@ if ( cmsIsEnabled() ) {
 						<div class="phone-trap minimal phone-number">
 							<div class="block prefix-group" style="position: relative">
 								<select class="js_phone_country_code" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; opacity: 0">
-									<?php include __DIR__ . '/../inc/phone-country-codes.php' ?>
+									<?php include __ROOT__ . '/pages/snippets/phone-country-codes.php' ?>
 								</select>
 								<input class="prefix js_phone_country_code_label button" value="+91" style="pointer-events: none; width: 100%;">
 							</div>
@@ -688,7 +645,7 @@ if ( cmsIsEnabled() ) {
 						<div class="phone-trap minimal phone-number">
 							<div class="block prefix-group" style="position: relative">
 								<select class="js_phone_country_code" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; opacity: 0">
-									<?php include __DIR__ . '/../inc/phone-country-codes.php' ?>
+									<?php include __ROOT__ . '/pages/snippets/phone-country-codes.php' ?>
 								</select>
 								<input class="prefix js_phone_country_code_label button" value="+91" style="pointer-events: none; width: 100%;">
 							</div>
@@ -762,25 +719,22 @@ if ( cmsIsEnabled() ) {
 	<div class="deal-carousel card-carousel js_carousel_container js_deals scroll-reveal <?php if ( empty( $deals ) ) echo 'hidden' ?>">
 		<div class="deal-list card-list js_carousel_content">
 			<?php foreach ( $deals as $index => $deal ) : ?>
-				<div class="deal card <?= getContent( false, 'dark_card', $deal[ 'ID' ] ) === true ? 'dark' : '' ?> fill-light js_carousel_item js_deal qpid_login_site">
+				<div class="deal card <?= $deal->get( 'deal_is_card_dark' ) ? 'dark' : '' ?> fill-light js_carousel_item js_deal qpid_login_site">
 					<!-- Thumbnail -->
-					<div class="thumbnail" style="background-image: url( '<?= getContent( '', 'thumbnail -> sizes -> medium', $deal[ 'ID' ] ) ?>');"></div>
+					<div class="thumbnail" style="background-image: url( '<?= $deal->get( 'deal_image / sizes / medium' ) ?>"></div>
 					<div class="info">
 						<!-- Title -->
-						<div class="title h4"><?= $deal[ 'post_title' ] ?></div>
+						<div class="title h4"><?= $deal->get( 'post_title' ) ?></div>
 						<!-- Timer -->
-						<?php
-							$expiryDate = date_create( getContent( '', 'expiry_date', $deal[ 'ID' ] ) );
-						?>
-						<div class="timer label strong js_countdown" data-date="<?= $expiryDate->format( 'Y-m-d' ) . 'T' . $expiryDate->format( 'H:i:s.v' ) . 'Z' ?>"><span class="h6 inline-middle">⚡</span>Flash Deal Ends: <?= getIntervalString( getContent( '', 'expiry_date', $deal[ 'ID' ] ) ) ?></div>
+						<div class="timer label strong js_countdown" data-date="<?= $deal->get( 'expiryDateISOString' ) ?>"><span class="h6 inline-middle">⚡</span>Flash Deal Ends: <?= $deal->get( 'timeRemaining' ) ?></div>
 						<!-- Action -->
 						<div class="action row">
 							<!-- Phone Trap Trigger -->
 							<label class="phone-trap-trigger columns small-12 js_login_trigger_region space-min-bottom">
 								<span class="invisible label inline text-neutral-1 text-uppercase">Book Now</span>
-								<button class="button block js_get_deal" id="deal<?= $index + 1 ?>" data-deal="<?= $deal[ 'post_title' ] ?>" data-c="deal">Get Deal</button>
+								<button class="button block js_get_deal" id="deal<?= $index + 1 ?>" data-deal="<?= $deal->get( 'post_title' ) ?>" data-c="deal">Get Deal</button>
 							</label>
-							<?php require __DIR__ . '/../inc/login-prompt.php'; ?>
+							<?php require __ROOT__ . '/pages/snippets/login-prompt.php'; ?>
 						</div>
 					</div>
 				</div>
@@ -807,8 +761,8 @@ if ( cmsIsEnabled() ) {
 				<div class="h2 text-green-2 scroll-reveal">Request a <span class="no-wrap">call-back</span></div>
 			</div>
 			<div class="contact columns small-10 small-offset-1 large-8">
-				<div class="contact-form row space-100-bottom qpid_login_site js_contact_form_section scroll-reveal" data-c="general-enquiry-form">
-					<form class="js_contact_form">
+				<div class="contact-form row space-100-bottom qpid_login_site js_contact_form_section scroll-reveal">
+					<form class="js_contact_form" data-c="general-enquiry-form">
 						<div class="form-row columns small-12 medium-6">
 							<label>
 								<span class="label inline text-neutral-3 text-uppercase">Full Name</span>
@@ -826,7 +780,7 @@ if ( cmsIsEnabled() ) {
 							<div class="phone-trap phone-number">
 								<div class="inline prefix-group" style="position: relative">
 									<select class="js_phone_country_code" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; opacity: 0">
-										<?php include __DIR__ . '/../inc/phone-country-codes.php' ?>
+										<?php include __ROOT__ . '/pages/snippets/phone-country-codes.php' ?>
 									</select>
 									<input class="prefix js_phone_country_code_label button" value="+91" style="pointer-events: none; width: 100%;">
 								</div>
@@ -902,7 +856,7 @@ if ( cmsIsEnabled() ) {
 							<div class="phone-trap minimal phone-number">
 								<div class="block prefix-group" style="position: relative">
 									<select class="js_phone_country_code" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; opacity: 0">
-										<?php include __DIR__ . '/../inc/phone-country-codes.php' ?>
+										<?php include __ROOT__ . '/pages/snippets/phone-country-codes.php' ?>
 									</select>
 									<input class="prefix js_phone_country_code_label button" value="+91" style="pointer-events: none; width: 100%;">
 								</div>
@@ -971,7 +925,7 @@ if ( cmsIsEnabled() ) {
 							<div class="phone-trap minimal phone-number">
 								<div class="block prefix-group" style="position: relative">
 									<select class="js_phone_country_code" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; opacity: 0">
-										<?php include __DIR__ . '/../inc/phone-country-codes.php' ?>
+										<?php include __ROOT__ . '/pages/snippets/phone-country-codes.php' ?>
 									</select>
 									<input class="prefix js_phone_country_code_label button" value="+91" style="pointer-events: none; width: 100%;">
 								</div>
@@ -1188,7 +1142,7 @@ if ( cmsIsEnabled() ) {
 							<div class="phone-trap minimal phone-number">
 								<div class="block prefix-group" style="position: relative">
 									<select class="js_phone_country_code" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; opacity: 0">
-										<?php include __DIR__ . '/../inc/phone-country-codes.php' ?>
+										<?php include __ROOT__ . '/pages/snippets/phone-country-codes.php' ?>
 									</select>
 									<input class="prefix js_phone_country_code_label button" value="+91" style="pointer-events: none; width: 100%;">
 								</div>
@@ -1355,15 +1309,15 @@ if ( cmsIsEnabled() ) {
 	<div class="event-carousel card-carousel js_carousel_container scroll-reveal <?php if ( empty( $events ) ) echo 'hidden' ?>" data-section="Events" data-section-id="events">
 		<div class="event-list card-list js_carousel_content">
 			<?php foreach ( $events as $event ) : ?>
-				<a class="event card fill-light <?php if ( $event[ 'isBeforeToday' ] ) echo 'opacity-50' ?> js_carousel_item" target="_blank" href="<?= getContent( $event[ 'permalink' ], 'external_page_link', $event[ 'ID' ] ) ?>">
+				<a class="event card fill-light <?php if ( $event->get( 'isBeforeToday' ) ) echo 'opacity-50' ?> js_carousel_item" target="_blank" href="<?= $event->get( 'event_external_link' ) ?: $event->get( 'permalink' ) ?>">
 					<!-- Thumbnail -->
-					<div class="thumbnail" style="background-image: url( '<?= getContent( '', 'thumbnail -> sizes -> medium', $event[ 'ID' ] ) ?>' );"></div>
+					<div class="thumbnail" style="background-image: url( '<?= $event->get( 'event_featured_image / sizes / medium' ) ?>' );"></div>
 					<div class="info">
-						<div class="inline date h5 text-uppercase"><span class="h3 inline" style="line-height: 0.7;"><?= $event[ 'date' ]->format( 'd' ) ?></span><br><?= $event[ 'date' ]->format( 'M' ) ?></div>
+						<div class="inline date h5 text-uppercase"><span class="h3 inline" style="line-height: 0.7;"><?= $event->get( 'event_date' )->format( 'd' ) ?></span><br><?= $event->get( 'event_date' )->format( 'M' ) ?></div>
 						<!-- Tag -->
-						<div class="inline tag label strong text-uppercase text-neutral-3"><?= getContent( '', 'tag', $event[ 'ID' ] ) ?></div>
+						<div class="inline tag label strong text-uppercase text-neutral-3"><?= $event->get( 'event_tag' ) ?></div>
 						<!-- Title -->
-						<div class="title h4"><?= $event[ 'post_title' ] ?></div>
+						<div class="title h4"><?= $event->get( 'post_title' ) ?></div>
 					</div>
 				</a>
 			<?php endforeach; ?>
@@ -1418,7 +1372,7 @@ if ( cmsIsEnabled() ) {
 							<div class="phone-trap minimal phone-number">
 								<div class="block prefix-group" style="position: relative">
 									<select class="js_phone_country_code" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; opacity: 0">
-										<?php include __DIR__ . '/../inc/phone-country-codes.php' ?>
+										<?php include __ROOT__ . '/pages/snippets/phone-country-codes.php' ?>
 									</select>
 									<input class="prefix js_phone_country_code_label button" value="+91" style="pointer-events: none; width: 100%;">
 								</div>
@@ -1524,14 +1478,14 @@ if ( cmsIsEnabled() ) {
 	<div class="news-carousel card-carousel js_carousel_container scroll-reveal <?php if ( empty( $news ) ) echo 'hidden' ?>" data-section="News" data-section-id="news">
 		<div class="news-list card-list js_carousel_content">
 			<?php foreach ( $news as $newsPiece ) : ?>
-				<a class="news card fill-light js_carousel_item" href="<?= getContent( $newsPiece[ 'permalink' ], 'source_link', $newsPiece[ 'ID' ] ) ?>" target="_blank">
+				<a class="news card fill-light js_carousel_item" href="<?= $newsPiece->get( 'news_source_link / url' ) ?: $newsPiece->get( 'permalink' ) ?>" target="_blank">
 					<!-- Thumbnail -->
-					<div class="thumbnail" style="background-image: url( '<?= getContent( '', 'thumbnail -> sizes -> medium', $newsPiece[ 'ID' ] ) ?>' );"></div>
+					<div class="thumbnail" style="background-image: url( '<?= $newsPiece->get( 'news_featured_image / sizes / medium' ) ?>"></div>
 					<div class="info">
 						<!-- Source -->
-						<div class="source label strong text-uppercase space-min-bottom"><div class="favicon inline-middle" style="margin-right: 5px;"><img src="<?= getContent( '/media/favicon/favicon-16x16.png', 'source_favicon -> url', $newsPiece[ 'ID' ] ) ?>"></div> <?= getContent( 'Guesture News', 'source_name', $newsPiece[ 'ID' ] ) ?></div>
+						<div class="source label strong text-uppercase space-min-bottom"><div class="favicon inline-middle" style="margin-right: 5px;"><img src="<?= $newsPiece->get( 'news_source_favicon / url' ) ?? '/media/favicon/favicon-16x16.png' ?>"></div> <?= $newsPiece->get( 'news_source_name' ) ?></div>
 						<!-- Title -->
-						<div class="title h5"><?= $newsPiece[ 'post_title' ] ?></div>
+						<div class="title h5"><?= $newsPiece->get( 'post_title' ) ?></div>
 					</div>
 				</a>
 			<?php endforeach; ?>
@@ -1603,5 +1557,4 @@ if ( cmsIsEnabled() ) {
 
 
 
-<?php require_once __DIR__ . '/../inc/below.php'; ?>
-
+<?php require_once __ROOT__ . '/pages/partials/footer.php'; ?>

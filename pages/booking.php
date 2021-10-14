@@ -31,7 +31,7 @@ catch ( \Exception $e ) {
 
 $cupidUser = null;
 try {
-	$cupidUser = json_decode( base64_decode( $_COOKIE[ CUPID_USER_COOKIE ] ), true );
+	$cupidUser = json_decode( base64_decode( $_COOKIE[ CUPID_USER_COOKIE ] ?? '{}' ), true );
 }
 catch ( \Exception $e ) {}
 
@@ -40,7 +40,7 @@ catch ( \Exception $e ) {}
 
 
 $pageTitle = "Booking";
-require_once __DIR__ . '/../inc/above.php';
+require_once __ROOT__ . '/pages/partials/header.php';
 
 
 ?>
@@ -55,7 +55,7 @@ require_once __DIR__ . '/../inc/above.php';
 				</a>
 			</div>
 			<div class="columns small-6 medium-7 text-right">
-				<a href="/" target="_blank" class="button fill-green-2">Visit Website <img class="hide-for-small" src="media/glyph/icon-exit.svg<?php echo $ver ?>"></a>
+				<a href="/" target="_blank" class="button fill-green-2">Visit Website <img class="hide-for-small" src="/media/glyph/icon-exit.svg<?php echo $ver ?>"></a>
 			</div>
 		</div>
 		<div class="row loading js_loading_indicator" style="position: fixed; z-index: 1; top: 0; left: 0; right: 0; bottom: 0; width: 100%; /*background-color: rgba(0,0,255,0.3);*/">
@@ -85,7 +85,7 @@ require_once __DIR__ . '/../inc/above.php';
 								</label>
 
 								<div class="row">
-									<div class="columns small-12 medium-6 large-4 xlarge-3"><?php require __DIR__ . '/../inc/login-prompt.php'; ?></div>
+									<div class="columns small-12 medium-6 large-4 xlarge-3"><?php require __ROOT__ . '/pages/snippets/login-prompt.php'; ?></div>
 								</div>
 							</div>
 						<?php endif; ?>
@@ -182,7 +182,7 @@ require_once __DIR__ . '/../inc/above.php';
 											<span class="label inline text-neutral-3 text-uppercase" style="flex-basis: 100%">Phone Number</span>
 											<div class="phone-prefix _prefix-group">
 												<select class="js_phone_country_code" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; opacity: 0">
-													<?php include __DIR__ . '/../inc/phone-country-codes.php' ?>
+													<?php include __ROOT__ . '/pages/snippets/phone-country-codes.php' ?>
 												</select>
 												<input class="_prefix js_phone_country_code_label button" value="+91" type="text" readonly>
 											</div>
@@ -193,7 +193,7 @@ require_once __DIR__ . '/../inc/above.php';
 										<label>
 											<span class="label inline text-neutral-3 text-uppercase invisible">Make Payment with PayTM</span>
 											<button class="button block fill-paytm-blue" type="submit" data-state="initial">
-												<span class="initial">Pay ₹<span class="js_booking_amount"></span> <img class="paytm-logo" src="media/logo-paytm-light.svg<?php echo $ver ?>"></span>
+												<span class="initial">Pay ₹<span class="js_booking_amount"></span> <img class="paytm-logo" src="/media/logo-paytm-light.svg<?php echo $ver ?>"></span>
 												<span class="checking">Checking Availability...</span>
 												<span class="processing">Processing Payment...</span>
 											</button>
@@ -265,26 +265,26 @@ require_once __DIR__ . '/../inc/above.php';
 					<div class="carousel modal-carousel js_carousel_container">
 						<div class="carousel-list js_location_images js_carousel_content">
 							<div class="carousel-list-item js_carousel_item">
-								<div class="image" style="background-image: url( 'media/sliding-gallery/5K8A6686.jpg' )"><span class="label caption">Balcony</span></div>
+								<div class="image" style="background-image: url( '/media/sliding-gallery/5K8A6686.jpg' )"><span class="label caption">Balcony</span></div>
 							</div>
 							<div class="carousel-list-item js_carousel_item">
-								<div class="image" style="background-image: url( 'media/sliding-gallery/5K8A6988.jpg' )"><span class="label caption">Entrance</span></div>
+								<div class="image" style="background-image: url( '/media/sliding-gallery/5K8A6988.jpg' )"><span class="label caption">Entrance</span></div>
 							</div>
 							<div class="carousel-list-item js_carousel_item">
-								<div class="image" style="background-image: url( 'media/sliding-gallery/5K8A6647.jpg' )"><span class="label caption">Bedroom</span></div>
+								<div class="image" style="background-image: url( '/media/sliding-gallery/5K8A6647.jpg' )"><span class="label caption">Bedroom</span></div>
 							</div>
 							<div class="carousel-list-item js_carousel_item">
-								<div class="image" style="background-image: url( 'media/sliding-gallery/5K8A6541.jpg' )"><span class="label caption">Living Room</span></div>
+								<div class="image" style="background-image: url( '/media/sliding-gallery/5K8A6541.jpg' )"><span class="label caption">Living Room</span></div>
 							</div>
 						</div>
 						<div class="scroll-controls">
 							<div class="row">
 								<div class="container">
 									<div class="columns small-6">
-										<div class="scroll-button button fill-green-2 scroll-left unselectable js_pager" data-dir="left" tabindex="-1"><img src="media/glyph/32-leftarrow.svg?v=20190917"></div>
+										<div class="scroll-button button fill-green-2 scroll-left unselectable js_pager" data-dir="left" tabindex="-1"><img src="/media/glyph/32-leftarrow.svg?v=20190917"></div>
 									</div>
 									<div class="columns small-6 text-right">
-										<div class="scroll-button button fill-green-2 scroll-right unselectable js_pager" data-dir="right" tabindex="-1"><img src="media/glyph/32-rightarrow.svg?v=20190917"></div>
+										<div class="scroll-button button fill-green-2 scroll-right unselectable js_pager" data-dir="right" tabindex="-1"><img src="/media/glyph/32-rightarrow.svg?v=20190917"></div>
 									</div>
 								</div>
 							</div>
@@ -304,7 +304,7 @@ require_once __DIR__ . '/../inc/above.php';
 							</span>
 						</div>
 						<div class="space-25-top space-min-bottom">
-							<a href="https://goo.gl/maps/awWKyDwRoEPzcg8t9" target="_blank" class="h6 strong inline-middle js_location_google_maps"><img class="inline-middle" src="media/glyph/24-maps.svg<?php echo $ver ?>" style="margin-right: 5px;"> Open in Google Maps</a>
+							<a href="https://goo.gl/maps/awWKyDwRoEPzcg8t9" target="_blank" class="h6 strong inline-middle js_location_google_maps"><img class="inline-middle" src="/media/glyph/24-maps.svg<?php echo $ver ?>" style="margin-right: 5px;"> Open in Google Maps</a>
 						</div>
 					</div>
 				</div>
@@ -335,4 +335,4 @@ require_once __DIR__ . '/../inc/above.php';
 
 </script>
 
-<?php require_once __DIR__ . '/../inc/below.php'; ?>
+<?php require_once __ROOT__ . '/pages/partials/footer.php'; ?>

@@ -1,21 +1,38 @@
 <?php
 /*
- *
- * This is the template for the news posts
- *
+ |
+ |	News page
+ |
  */
-if ( empty( $urlSlug ) )
-	return header( 'Location: /', true, 302 );
 
-require_once __DIR__ . '/../inc/above.php';
+require_once __ROOT__ . '/lib/routing.php';
+require_once __ROOT__ . '/lib/utils.php';
+require_once __ROOT__ . '/types/news/news.php';
 
+use BFS\Router;
+use BFS\Types\News;
+
+$thisNews = News::getFromURL();
+
+// If the news post is intended to lead to an external website, then redirect to that URL if the news post is accessed directly through its URL.
+	// NOTE: A news post's URL can be discovered through the sitemap.
+if ( ! empty( $thisNews->get( 'news_source_link / url' ) ) ) {
+	return Router::redirectTo( $thisNews->get( 'news_source_link / url' ) );
+	exit;
+}
 
 ?>
 
+<?php require_once __ROOT__ . '/pages/partials/header.php'; ?>
 
 
 
 
+
+<style type="text/css">
+	ul { list-style: none; }
+	figure { margin: 0 auto; }
+</style>
 <!-- Post Content -->
 <section class="document-navigation space-50-top space-25-bottom">
 	<div class="container">
@@ -32,28 +49,27 @@ require_once __DIR__ . '/../inc/above.php';
 		<div class="row">
 			<div class="columns small-12 medium-10 medium-offset-1 xlarge-8 xlarge-offset-2 space-min">
 				<!-- Title -->
-				<div class="title h2"><?= $thePost->post_title ?></div>
+				<div class="title h2"><?= $thisNews->get( 'post_title' ) ?></div>
 			</div>
 
 			<div class="columns small-12 medium-10 medium-offset-1 large-6 xlarge-5 xlarge-offset-2 space-min">
 				<!-- Thumbnail -->
-				<div class="thumbnail" style="background-image: url( '<?= getContent( '', 'thumbnail -> sizes -> medium' ) ?>' );"></div>
+				<div class="thumbnail" style="background-image: url( '<?= $thisNews->get( 'news_featured_image / sizes / medium' ) ?>' );"></div>
 			</div>
 
 			<div class="columns small-12 medium-10 medium-offset-1 large-4 xlarge-3 large-offset-0 space-min">
 				<!-- Date -->
-				<?php $date = date_create( $thePost->post_date ); ?>
-				<div class="inline date h5 text-uppercase"><span class="h3 inline" style="line-height: 0.7;"><?= $date->format( 'd' ) ?></span><br><?= $date->format( 'M' ) ?></div>
+				<div class="inline date h5 text-uppercase"><span class="h3 inline" style="line-height: 0.7;"><?= $thisNews->get( 'news_date' )->format( 'd' ) ?></span><br><?= $thisNews->get( 'news_date' )->format( 'M' ) ?></div>
 			</div>
 		</div>
 	</div>
 </section>
 
-<section class="document-section space-50-bottom">
+<section class="post-content _document-section space-50-bottom">
 	<div class="container">
 		<div class="row">
 			<div class="columns small-12 medium-10 medium-offset-1 xlarge-8 xlarge-offset-2 space-min">
-				<div class="content"><?= getContent( '', 'content' ) ?></div>
+				<div class="content"><?= $thisNews->get( 'content' ) ?></div>
 			</div>
 		</div>
 	</div>
@@ -64,4 +80,4 @@ require_once __DIR__ . '/../inc/above.php';
 
 
 
-<?php require_once __DIR__ . '/../inc/below.php'; ?>
+<?php require_once __ROOT__ . '/pages/partials/footer.php'; ?>

@@ -1,0 +1,374 @@
+
+/* -- Document Header -- */
+.document-header .featured-image {
+	width: 100%;
+	padding-top: 100%;
+	border-radius: var(--space-min);
+	background-size: cover;
+	background-repeat: no-repeat;
+	background-position: center center;
+}
+
+
+/*
+ | 	Textual elements
+ */
+.post-content h1,
+.post-content h2,
+.post-content h3,
+.post-content h4,
+.post-content h5,
+.post-content h6 {
+	font-family: fira-sans, 'Arial Black', Arial, sans-serif;
+	line-height: 1.125;
+	font-weight: 800;
+	display: block;
+}
+
+.post-content h1 { font-size: 4.2rem; }
+.post-content h2 { font-size: 3.2rem; }
+.post-content h3 { font-size: 2.6rem; }
+.post-content h4 { font-size: 2.0rem; }
+.post-content h5 { font-size: 1.6rem; }
+.post-content h6 { font-size: 1.4rem; }
+.post-content p 	{ font-size: 1.4rem; }
+.post-content label { font-size: 1.1rem; }
+.post-content small { font-size: 0.9rem; }
+
+@media( min-width: 640px )  {
+	.post-content h1 { font-size: 8.4rem; }
+	.post-content h2 { font-size: 6.0rem; }
+	.post-content h3 { font-size: 3.6rem; }
+	.post-content h4 { font-size: 2.4rem; }
+	.post-content h5 { font-size: 1.8rem; }
+	.post-content h6 { font-size: 1.4rem; }
+	.post-content p 	{ font-size: 1.4rem; }
+	.post-content label { font-size: 1.1rem; }
+	.post-content small { font-size: 0.9rem; }
+}
+
+@media( min-width: 1040px ) {
+	.post-content h1 { font-size: 9.6rem; }
+	.post-content h2 { font-size: 6.0rem; }
+	.post-content h3 { font-size: 3.6rem; }
+	.post-content h4 { font-size: 2.4rem; }
+	.post-content h5 { font-size: 1.8rem; }
+	.post-content h6 { font-size: 1.5rem; }
+	.post-content p 	{ font-size: 1.5rem; }
+	.post-content label { font-size: 1.2rem; }
+	.post-content small { font-size: 1.0rem; }
+}
+
+@media( min-width: 1480px ) {
+	.post-content h1 { font-size: 12.0rem; }
+	.post-content h2 { font-size: 8.4rem;  }
+	.post-content h3 { font-size: 4.8rem;  }
+	.post-content h4 { font-size: 3.2rem;  }
+	.post-content h5 { font-size: 2.4rem;  }
+	.post-content h6 { font-size: 1.7rem;  }
+	.post-content p 	{ font-size: 1.7rem;  }
+	.post-content label { font-size: 1.4rem; }
+	.post-content small { font-size: 1.2rem; }
+}
+
+.post-content h1,
+.post-content h2,
+.post-content h3,
+.post-content h4,
+.post-content h5,
+.post-content h6 {
+	padding-top: 2rem;
+	padding-bottom: 1rem;
+}
+
+.post-content p {
+	display: block;
+	padding-bottom: var(--space-25);
+}
+
+.post-content .wp-block-quote {
+	display: block;
+	margin: 0 var(--space-min);
+	margin-bottom: var(--space-25);
+	padding: var(--space-25);
+	padding-bottom: 0;
+	background-color: var(--neutral-1);
+}
+.post-content .wp-block-quote p {
+	font-size: 1.6rem;
+}
+.post-content .wp-block-quote.is-style-large p {
+	font-size: 2.0rem;
+}
+@media( min-width: 640px ) {
+	.post-content .wp-block-quote p {
+		font-size: 1.8rem;
+	}
+	.post-content .wp-block-quote.is-style-large p {
+		font-size: 2.4rem;
+	}
+}
+@media( min-width: 1040px ) {
+	.post-content .wp-block-quote p {
+		font-size: 1.8rem;
+	}
+	.post-content .wp-block-quote.is-style-large p {
+		font-size: 2.4rem;
+	}
+}
+@media( min-width: 1480px ) {
+	.post-content .wp-block-quote p {
+		font-size: 2.4rem;
+	}
+	.post-content .wp-block-quote.is-style-large p {
+		font-size: 3.2rem;
+	}
+}
+
+
+
+.post-content ul:not(.blocks-gallery-grid) {
+	position: relative;
+	list-style: inherit;
+	padding-left: 0;
+	padding-bottom: var(--space-25);
+}
+.post-content ul:not(.blocks-gallery-grid) li {
+	display: flex; /* this makes the :before behave like ::marker */
+	padding-left: 0;
+	font-size: 1.4rem;
+	margin-bottom: 0;
+	list-style: none;
+}
+.post-content ul:not(.blocks-gallery-grid) li:before {
+	display: inline-block;
+	content: '\2014';
+	padding-right: var(--space-min);
+	padding-bottom: var(--space-min);
+	color: var(--green-1);
+	font-size: inherit;
+	font-weight: 700;
+	font-family: inherit;
+	line-height: inherit;
+}
+.post-content ol li::marker {
+	color: var(--green-3);
+}
+
+@media( min-width: 1040px ) {
+	.post-content ul:not(.blocks-gallery-grid) li {
+		font-size: 1.5rem;
+	}
+}
+@media( min-width: 1480px ) {
+	.post-content ul:not(.blocks-gallery-grid) li {
+		font-size: 1.7rem;
+	}
+}
+
+.post-content a:not(.wp-block-button__link) {
+	/*margin-top: 5px;*/
+	color: var(--neutral-4);
+	border-bottom: solid 1px var(--green-2);
+	text-decoration: none;
+}
+
+.post-content hr {
+	margin: var(--space-25) 0;
+	border-color: var(--green-2);
+}
+
+
+
+/*
+ | Image
+ */
+.post-content .wp-block-image {
+	padding-bottom: var(--space-25);
+}
+
+.post-content .wp-block-image {
+	margin: 0;
+}
+.post-content .wp-block-image { margin: 0; }
+.post-content .wp-block-image img {}
+
+.post-content .wp-block-image.size-large img {
+	width: 100%;
+}
+
+.post-content .wp-block-image.alignfull {
+	width: 100vw;
+	margin-left: calc( ((100vw - var(--container-width))/2) * -1 );
+}
+.post-content .wp-block-image.alignfull img {
+	width: 100%;
+	max-width: none;
+}
+
+.post-content .wp-block-image.alignwide {
+	width: var(--container-width);
+}
+.post-content .wp-block-image.alignwide img {
+	width: 100%;
+	max-width: none;
+}
+
+@media( min-width: 640px )  {
+
+	.post-content .wp-block-image.alignfull {
+		margin-left: calc( (((100vw - var(--container-width))/2) + var(--space-100)) * -1 );
+	}
+
+	.post-content .wp-block-image.alignwide {
+		margin-left: calc(var(--space-100) * -1);
+	}
+}
+
+
+/*
+ | Gallery
+ */
+.p/*ost-content .wp-block-gallery {
+	position: relative;
+	margin: 0;
+	width: 100%;
+	margin-left: 50%;
+	width: 100vw;
+	transform: translateX(-50%);
+}*/
+
+/*.post-content .wp-block-gallery { margin-bottom: var(--space-25); }*/
+
+/* for reasons unknown, WordPress generates cruft markup that breaks the layout */
+/*.post-content .wp-block-gallery br,
+.post-content .wp-block-gallery p {
+	display: none;
+}*/
+
+/*.post-content .wp-block-gallery .blocks-gallery-grid {
+	list-style: none;
+	display: block;
+	background-color: var(--dark);
+}
+.post-content .wp-block-gallery .blocks-gallery-grid .blocks-gallery-item {
+	display: inline-block;
+	width: auto;
+	height: auto;
+	margin: 0;
+	font-size: 0;
+	vertical-align: top;
+}
+.post-content .wp-block-gallery .blocks-gallery-grid .blocks-gallery-item figure {
+	position: relative;
+	display: inline-block;
+	width: auto;
+	height: auto;
+	margin: 0;
+	padding: 2px 1px;
+}
+.post-content .wp-block-gallery .blocks-gallery-grid .blocks-gallery-item figure img {
+	display: inline-block;
+	height: calc( var(--space-100) * 3 );
+	width: auto;
+	object-fit: contain;
+}*/
+
+.post-content .wp-block-gallery {
+	display: flex;
+	flex-wrap: wrap;
+	padding: 0;
+}
+
+/* for reasons unknown, WordPress generates cruft markup that breaks the layout */
+.post-content .wp-block-gallery br,
+.post-content .wp-block-gallery p {
+	display: none;
+}
+
+.post-content .wp-block-gallery .blocks-gallery-grid {
+	list-style: none;
+	display: block;
+	/*background-color: var(--dark);*/
+}
+
+.post-content .wp-block-gallery figcaption {
+	position: absolute;
+	bottom: 0;
+	left: 0;
+	width: 100%;
+	height: auto;
+	font-size: 1.2rem;
+	text-align: center;
+	color: var(--light);
+	background-color: rgba(0,0,0,0.75);
+	padding: 5px 0;
+}
+.post-content .wp-block-gallery > figcaption {
+	top: 100%;
+}
+
+
+
+/*
+ | Buttons
+ */
+.wp-block-button {
+	box-sizing: border-box;
+	display: inline-block;
+	margin-bottom: 0;
+	height: var(--space-75);
+	padding: 0 calc(var(--space-75)/2);
+	font-size: 1.2rem;
+	font-weight: 400;
+	line-height: var(--space-75);
+	letter-spacing: .1rem;
+	text-transform: uppercase;
+	text-decoration: none;
+	white-space: nowrap;
+	color: var(--light);
+	background-color: var(--green-2);
+	box-shadow: 0 1px 6px rgba(0, 0, 0, 0.1), inset 0 1px 0 rgba(255, 255, 255, 0.2);
+	border: none;
+	border-radius: calc(var(--space-min)/2);
+	filter: brightness(1);
+	-webkit-transition: filter 0.2s;
+	-moz-transition: filter 0.2s;
+	transition: filter 0.2s;
+	cursor: pointer;
+}
+
+.wp-block-button:hover {
+	outline: 0;
+	filter: brightness(1.2);
+}
+
+.wp-block-button:focus {
+    outline: 0;
+    box-shadow: 0px 2px 6px rgba(20,20,10,0.5);
+}
+
+@media( min-width: 640px )  {
+	.wp-block-button {
+		height: var(--space-75);
+		padding: 0 calc(var(--space-75)/2);
+		font-size: 1.2rem;
+		line-height: var(--space-75);
+	}
+}
+@media( min-width: 1040px ) {
+	.wp-block-button {
+		height: var(--space-50);
+		padding: 0 calc(var(--space-50)/2);
+		font-size: 1.3rem;
+		line-height: var(--space-50);
+	}
+}
+@media( min-width: 1480px ) {
+	.wp-block-button {
+		padding: 0 calc(var(--space-50)/2);
+		height: var(--space-50);
+		font-size: 1.6rem;
+		line-height: var(--space-50);
+	}
+}

@@ -1859,12 +1859,16 @@ button.fill-paytm-blue:disabled {
 }
 
 /* -- News Overwrite -- */
+.card-carousel .card-list .card.news {
+	min-height: 455px;
+}
 .card-carousel .card-list .card.news .source {
 	padding-left: 15px;
 	padding-right: 15px;
 }
-.card-carousel .card-list .card.news {
-	min-height: 455px;
+.card-carousel .card-list .card.news .source img {
+	max-width: 16px;
+	height: 16px;
 }
 @media( min-width: 640px )  {
 	.card-carousel .card-list .card.news {

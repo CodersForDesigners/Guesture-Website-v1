@@ -16,6 +16,10 @@ RewriteRule ^/?(content/.*) server/forward-to-remote-server.php [NC,QSA,L]
 # Certain *static* pages (in the content folder) need to first be augmented with some code
 RewriteRule ^/?(content/media/.+/.+/index.htm) pages/augment-static-page.php?path=$1&with[]=no-right-click&with[]=3d-vista-hide-context-menu&with[]=google-tag-manager [NC,QSA,L]
 
+# Correct REST API requests (since WordPress is accessible through a nested URL)
+RewriteRule ^/?wp\-json(/.*)$ "/cms/?rest_route=$1" [NC,QSA,L]
+
+
 RewriteCond %{REQUEST_FILENAME} !-f
 RewriteCond %{REQUEST_FILENAME} !-d
 RewriteRule . index.php [NC,QSA,L]
