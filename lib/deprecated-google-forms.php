@@ -71,20 +71,24 @@ function getAPIResponse ( $endpoint, $method, $data = [ ] ) {
 
 }
 
-function submitPerson ( $data ) {
+/*
+ *
+ * Submit a Google Form
+ *
+ */
+function submitPersonIngestion ( $data ) {
 
 	$endpoint = 'https://docs.google.com/forms/d/e/'
 			. '1FAIpQLSeM5CrEc3x6HkDt7XF8x8ol8nff7OrOQwmGDZ_1zI_TwmoNXw/formResponse';
 	$requestBody = [
 		'entry.1212525387' => $data[ 'when' ],
-		'entry.1565423970' => $data[ 'id' ] ?? '',
-		'entry.1578729276' => $data[ 'phoneNumber' ] ?? '',
-		'entry.1255272716' => $data[ 'name' ] ?? '',
-		'entry.233670921' => $data[ 'emailAddress' ] ?? '',
-		'entry.1395013542' => $data[ 'sourceMedium' ] ?? '',
-		'entry.1119604257' => $data[ 'sourcePoint' ] ?? '',
-		'entry.39439247' => $data[ 'interests' ] ?? '',
-		'entry.2061318693' => $data[ 'callRecording' ] ?? ''
+		'entry.1565423970' => $data[ 'id' ],
+		'entry.1578729276' => $data[ 'phoneNumber' ],
+		'entry.233670921' => $data[ 'emailAddress' ],
+		'entry.1395013542' => $data[ 'sourceMedium' ],
+		'entry.1119604257' => $data[ 'sourcePoint' ],
+		'entry.39439247' => $data[ 'interests' ],
+		'entry.2061318693' => $data[ 'callRecording' ]
 	];
 
 	$response = getAPIResponse( $endpoint, 'POST', $requestBody );
@@ -93,22 +97,20 @@ function submitPerson ( $data ) {
 
 }
 
-function submitPersonActivity ( $activity, $data ) {
+function submitPersonActivity ( $data ) {
 
 	$endpoint = 'https://docs.google.com/forms/d/e/'
 			. '1FAIpQLSeOQkcY00L86KoLL96uxEUsyWZfqkNqs-izsBCvD2o1xdw2YQ/formResponse';
 	$requestBody = [
 		'entry.1192185748' => $data[ 'when' ],
-		'entry.536415826' => $activity,
-		'entry.1792821482' => $data[ 'id' ] ?? '',
+		'entry.1792821482' => $data[ 'id' ],
 		'entry.487995029' => $data[ 'phoneNumber' ],
-		'entry.873356055' => $data[ 'name' ] ?? '',
-		'entry.1737991024' => $data[ 'emailAddress' ] ?? '',
-		'entry.1605323075' => $data[ 'verified' ] ?? '',
-		'entry.1025227529' => $data[ 'sourceMedium' ] ?? '',
-		'entry.1771467168' => $data[ 'sourcePoint' ] ?? '',
-		'entry.1911175480' => $data[ 'interests' ] ?? '',
-		'entry.496425601' => $data[ 'extendedAttributes' ] ?? ''
+		'entry.1605323075' => $data[ 'verified' ],
+		'entry.1025227529' => $data[ 'sourceMedium' ],
+		'entry.1771467168' => $data[ 'sourcePoint' ],
+		'entry.1911175480' => $data[ 'interests' ],
+		'entry.433341220' => $data[ 'duration' ],
+		'entry.2105119295' => $data[ 'callRecording' ]
 	];
 
 	$response = getAPIResponse( $endpoint, 'POST', $requestBody );

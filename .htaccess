@@ -19,6 +19,9 @@ RewriteRule ^/?(content/media/.+/.+/index.htm) pages/augment-static-page.php?pat
 # Correct REST API requests (since WordPress is accessible through a nested URL)
 RewriteRule ^/?wp\-json(/.*)$ "/cms/?rest_route=$1" [NC,QSA,L]
 
+# If the request is for a purely backend / server route, forward them to the `server` directory
+RewriteRule ^/?(api/.*) server/$1.php [NC,QSA,L]
+
 
 RewriteCond %{REQUEST_FILENAME} !-f
 RewriteCond %{REQUEST_FILENAME} !-d

@@ -26,13 +26,14 @@ if ( strtoupper( $_SERVER[ 'REQUEST_METHOD' ] ) === 'GET' ) {
 		return header( 'Location: ' . $redirectURL, true, 302 );
 		exit;
  	}
- 	// Else if the route is being navigatedg to post-transaction
+ 	// Else if the route is being navigated to post-transaction
  	else {
 		$transaction = json_decode( base64_decode( $_GET[ 't' ] ), true );
 		$transactionOccurred = $transaction[ 'occurred' ];
 		$transactionErrors = $transaction[ 'errors' ];
 		$orderId = $transaction[ 'orderId' ];
 		require_once __DIR__ . '/booking.php';
+		exit;
  	}
 }
 

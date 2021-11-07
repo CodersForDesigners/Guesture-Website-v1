@@ -18,5 +18,8 @@
 # the cms directory
 # /cms
 
+# test files
+test.php
+
 # Weird Networked Drive Artifact
 .smb*

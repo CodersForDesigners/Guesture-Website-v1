@@ -1,14 +1,9 @@
 
-function displayErrorMessage () {
-	$( ".js_error_content" ).fadeIn( 400, function () {
-		$( ".js_loading_indicator" ).fadeOut();
-	} );
-}
-
-/*
- *
- * Render the accommodation details
- *
+/**
+ |
+ | Render the accommodation details
+ |
+ |
  */
 $( function () {
 
@@ -38,16 +33,24 @@ $( function () {
 		// Fade in the content
 		setTimeout( function () {
 			// If there's an error, show the error message
-			if ( livingSituation.monthlyFee.trim() ) {
+			if ( ! livingSituation.monthlyFee.trim() )
+				displayErrorMessage();
+			// Else, show the main content
+			else {
 				$( ".js_main_content" ).fadeIn( 400, function () {
 					$( ".js_loading_indicator" ).fadeOut();
 				} );
 			}
-			// Else, show the main content
-			else
-				displayErrorMessage();
 		}, 300 );
 	} )
 	.catch( displayErrorMessage )
+
+
+
+	function displayErrorMessage () {
+		$( ".js_error_content" ).fadeIn( 400, function () {
+			$( ".js_loading_indicator" ).fadeOut();
+		} );
+	}
 
 } );

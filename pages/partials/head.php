@@ -164,6 +164,23 @@ $metaCharset = WordPress::$isEnabled ? get_bloginfo( 'charset' ) : 'utf-8';
 <!-- Stylesheet -->
 <?php require_once __ROOT__ . '/style.php'; ?>
 
+<script type="text/javascript">
+
+	window.__BFS = window.__BFS || { };
+	window.__BFS.CONF = {
+		trackingURL: "<?= BFS_TRACKING_URL ?>",
+		cupid: {
+			client: "<?= CUPID_CLIENT ?>",
+			clientSlug: "<?= CUPID_CLIENT_SLUG ?>",
+			sourceMedium: "<?= CUPID_SOURCE_MEDIUM ?>",
+			cupidApiEndpoint: "<?= CUPID_API_ENDPOINT ?>",
+			authCookieName: "<?= CUPID_AUTH_COOKIE_NAME ?>",
+			forceLogoutIfLoggedInBefore: "<?= CUPID_FORCE_LOGOUT_IF_LOGGED_IN_BEFORE ?>"
+		}
+	};
+
+</script>
+
 <!-- jQuery 3 -->
 <script type="text/javascript" src="/plugins/jquery/jquery-v3.6.0.min.js<?= $ver ?>"></script>
 <!-- Slick Carousel -->

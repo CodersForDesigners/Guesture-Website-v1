@@ -66,7 +66,7 @@ if ( ! empty( $input[ 'phoneNumber' ] ) and $input[ 'phoneNumber' ] === '+917760
  * Pull in the dependencies
  \-------------------------------------- */
 require_once __DIR__ . '/../lib/datetime.php';
-require_once __DIR__ . '/../lib/google-forms.php';
+require_once __DIR__ . '/../lib/deprecated-google-forms.php';
 
 
 

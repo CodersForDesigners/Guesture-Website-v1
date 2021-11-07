@@ -6,7 +6,10 @@ ini_set( 'error_reporting', E_ALL );
 
 
 require_once __DIR__ . '/../conf.php';
-// require_once __DIR__ . '/../utils.php';
+
+// Parse input from the request, reject if empty
+require_once __DIR__ . '/../lib/api-script-mandatory-input-parsing.php';
+
 /**
  *
  * Import checksum generation utility (https://developer.paytm.com/docs/checksum/)
@@ -23,10 +26,10 @@ require_once __DIR__ . '/paytm-checksum.php';
  * Extract data from input
  *
  */
-$customerName = $_POST[ 'name' ];
-$customerPhoneNumber = $_POST[ 'phoneNumber' ];
-$customerEmailAddress = $_POST[ 'emailAddress' ];
-$booking = $_POST[ 'booking' ];
+$customerName = $input[ 'name' ];
+$customerPhoneNumber = $input[ 'phoneNumber' ];
+$customerEmailAddress = $input[ 'emailAddress' ];
+$booking = $input[ 'booking' ];
 
 
 

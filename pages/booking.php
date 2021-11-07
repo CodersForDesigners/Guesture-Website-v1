@@ -31,7 +31,7 @@ catch ( \Exception $e ) {
 
 $cupidUser = null;
 try {
-	$cupidUser = json_decode( base64_decode( $_COOKIE[ CUPID_USER_COOKIE ] ?? '{}' ), true );
+	$cupidUser = json_decode( base64_decode( $_COOKIE[ CUPID_AUTH_COOKIE_NAME ] ?? '{}' ), true );
 }
 catch ( \Exception $e ) {}
 
@@ -93,7 +93,6 @@ require_once __ROOT__ . '/pages/partials/header.php';
 						<!-- Booking Form -->
 						<?php if ( ! $transactionOccurred ) : ?>
 							<form class="booking-form js_booking_form">
-							<!-- <form class="booking-form js_booking_form" <?php if ( empty( $cupidUser ) ) : ?>style="display: none"<?php endif; ?>> -->
 								<div class="price-options row space-50-top js_price_options">
 									<div class="form-row columns small-12">
 										<label class="price-option cursor-pointer block space-min-bottom" data-type="booking">
@@ -131,20 +130,20 @@ require_once __ROOT__ . '/pages/partials/header.php';
 									<div class="form-row columns small-12 medium-6">
 										<label>
 											<span class="label inline text-neutral-3 text-uppercase">Full Name</span>
-											<input class="name block" type="text" name="name" required>
+											<input class="name block js_form_input_name" type="text" name="name" required>
 										</label>
 									</div>
 									<div class="form-row columns small-12 medium-6">
 										<label>
 											<span class="label inline text-neutral-3 text-uppercase">Email Id</span>
-											<input class="email block" type="text" name="email-address" required>
+											<input class="email block js_form_input_email" type="text" name="email-address" required>
 										</label>
 									</div>
 									<div class="form-row columns small-12 medium-6">
 										<label>
 											<span class="label inline text-neutral-3 text-uppercase">Starting From</span>
 											<div class="date-input-container">
-												<input class="date block js_booking_from_date" type="date" pattern="[0-9\-\/]+" value="" required>
+												<input class="date block js_form_input_from_date js_booking_from_date" type="date" pattern="[0-9\-\/]+" value="" required>
 											</div>
 										</label>
 									</div>
@@ -186,7 +185,7 @@ require_once __ROOT__ . '/pages/partials/header.php';
 												</select>
 												<input class="_prefix js_phone_country_code_label button" value="+91" type="text" readonly>
 											</div>
-											<input class="phone" type="text" name="phone-number" required>
+											<input class="phone js_form_input_phonenumber" type="text" name="phone-number" required>
 										</label>
 									</div>
 									<div class="form-row columns small-12 medium-6">
@@ -209,6 +208,12 @@ require_once __ROOT__ . '/pages/partials/header.php';
 
 
 						<!-- Post Transaction messaging -->
+						<?php
+						 /*
+						  | Post Transaction messaging
+						  | Show an appropriate message depending on whether the payment was successful or not
+						  */
+						?>
 						<?php if ( $transactionOccurred ) : ?>
 							<?php if ( empty( $transactionErrors ) ) : ?>
 								<div class="h3 text-green-2 strong space-50-top">Payment Successful!</div>
@@ -222,7 +227,7 @@ require_once __ROOT__ . '/pages/partials/header.php';
 
 						<div class="h4 strong space-25-top js_summary space-25-bottom">This option gives you access to a Twin Sharing room in a furnished 3 Bedroom Flat. Your room has an attached bathroom and an attached Balcony.</div>
 						<div class="virtual-tour-container fill-dark js_virtual_tour_container">
-							<iframe class="virtual-tour js_virtual_tour" data-default-src="/media/favicon/favicon.ico" src="/media/favicon/favicon.ico" frameborder="0" data-hj-allow-iframe=""></iframe>
+							<iframe class="virtual-tour js_virtual_tour" data-default-src="/media/favicon/favicon.ico" src="/media/favicon/favicon.ico" frameborder="0" loading="lazy" data-hj-allow-iframe=""></iframe>
 						</div>
 					</div>
 					<div class="columns small-10 small-offset-1 large-8 xlarge-7">
@@ -230,7 +235,7 @@ require_once __ROOT__ . '/pages/partials/header.php';
 					</div>
 					<div class="p columns small-10 small-offset-1 large-8 xlarge-7 column-wrap js_room">
 						<span class="p block space-min-bottom js_room">
-							<!-- Inset Formated Text -->
+							<!-- Text inserted by JavaScript -->
 						</span>
 					</div>
 					<div class="columns small-10 small-offset-1 large-8 xlarge-7">
@@ -238,13 +243,13 @@ require_once __ROOT__ . '/pages/partials/header.php';
 					</div>
 					<div class="p columns small-10 small-offset-1 large-8 xlarge-7 column-wrap js_suite">
 						<span class="p block space-min-bottom js_suite">
-							<!-- Inset Formated Text -->
+							<!-- Text inserted by JavaScript -->
 						</span>
 					</div>
 					<div class="columns small-10 small-offset-1 large-8 xlarge-7">
 						<div class="h4 strong space-25-top-bottom text-green-2">Services that are included?</div>
 						<span class="p block space-min-bottom js_services">
-							<!-- Inset Formated Text -->
+							<!-- Text inserted by JavaScript -->
 						</span>
 					</div>
 				</div>
@@ -252,7 +257,7 @@ require_once __ROOT__ . '/pages/partials/header.php';
 					<div class="columns small-10 small-offset-1 large-8 xlarge-7">
 						<div class="h4 strong space-25-bottom">Optional Add-on Services</div>
 						<span class="h5 block js_addons">
-							<!-- Inset Formated Text -->
+							<!-- Text inserted by JavaScript -->
 						</span>
 					</div>
 				</div>
@@ -310,6 +315,13 @@ require_once __ROOT__ . '/pages/partials/header.php';
 				</div>
 			</div>
 		</div>
+
+		<?php
+		 /*
+		  | In the scenario where the configuration query parameter (i.e. `q`) has an old or invalid value,
+		  |  then the following error message is shown.
+		  */
+		?>
 		<div class="row invalid-data space-50-top space-100-bottom js_error_content" style="position: relative; z-index: 2; display: none;">
 			<div class="columns small-12 fill-light" style="border-radius: 10px; overflow: hidden; box-shadow: 0px 0px 3px rgba(0,0,0,0.15), 0px 3px 8px rgba(0,0,0,0.15)">
 				<div class="row space-50-top space-50-bottom">

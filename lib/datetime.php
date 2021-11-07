@@ -10,6 +10,14 @@ namespace CFD;
 
 class DateTime {
 
+	public static function getCurrentTimestamp__SpreadsheetCompatible () {
+		$IST_Date = self::getCurrentTimeInIST();
+		$dateValue = self::getDateValue( $IST_Date );
+		$timeValue = self::getTimeValue( $IST_Date );
+		$spreadsheetDate = $dateValue + $timeValue;
+		return $spreadsheetDate;
+	}
+	// this one is no longer used
 	public static function getSpreadsheetDateFromISO8601 ( $iso8601 ) {
 		$date = self::parseISO8601( $iso8601 );
 		$IST_Date = self::toIST( $date );
@@ -18,6 +26,9 @@ class DateTime {
 		$spreadsheetDate = $dateValue + $timeValue;
 		return $spreadsheetDate;
 	}
+		private static function getCurrentTimeInIST () {
+			return new \DateTime( 'now', new \DateTimeZone( 'Asia/Kolkata' ) );
+		}
 		private static function parseISO8601 ( $iso8601 ) {
 			return \DateTime::createFromFormat(
 				'Y-m-d\TH:i:s.u\Z',

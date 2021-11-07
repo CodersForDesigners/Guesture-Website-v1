@@ -2,14 +2,17 @@
 
 require_once __DIR__ . '/guesture.php';
 
-$type = $_POST[ 'type' ];
-$location = $_POST[ 'location' ] ?? '';
-$hasBalcony = strtolower( $_POST[ 'balcony' ] ) === 'attached' ? 1 : 0;
-$hasBathroom = strtolower( $_POST[ 'bathroom' ] ) === 'attached' ? 1 : 0;
-$fromDateString = $_POST[ 'fromDateString' ];
-$toDateString = $_POST[ 'toDateString' ];
-$durationUnit = $_POST[ 'durationUnit' ];
-$durationAmount = $_POST[ 'durationAmount' ];
+// Parse input from the request, reject if empty
+require_once __DIR__ . '/../../lib/api-script-mandatory-input-parsing.php';
+
+$type = $input[ 'type' ];
+$location = $input[ 'location' ] ?? '';
+$hasBalcony = strtolower( $input[ 'balcony' ] ) === 'attached' ? 1 : 0;
+$hasBathroom = strtolower( $input[ 'bathroom' ] ) === 'attached' ? 1 : 0;
+$fromDateString = $input[ 'fromDateString' ];
+$toDateString = $input[ 'toDateString' ];
+$durationUnit = $input[ 'durationUnit' ];
+$durationAmount = $input[ 'durationAmount' ];
 
 if ( strtolower( $location ) === 'dwellington - blr' )
 	$location = 'dw';

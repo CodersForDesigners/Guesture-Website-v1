@@ -23,6 +23,13 @@ function initialiseVideoEmbeds () {
 		};
 		if ( $( el ).hasClass( "js_video_get_player" ) )
 			attributes.src += "&enablejsapi=1&mute=1&controls=0";
+
+		let lazyLoad = $( el ).data( "loading" )
+		if (
+			( typeof lazyLoad === "string" )
+			&& [ "lazy", "auto", "eager" ].includes( lazyLoad.trim() )
+		)
+			attributes.loading = lazyLoad.trim()
 		$iframe.attr( attributes );
 		$( el ).append( $iframe );
 	} );

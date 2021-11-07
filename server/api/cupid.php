@@ -49,7 +49,7 @@ class Cupid {
 	 */
 	public static function recordPurchase ( $data ) {
 
-		$endpoint = self::$apiUrl . 'v2/hooks/person-made-purchase';
+		$endpoint = self::$apiUrl . '/v2/hooks/person-made-purchase';
 
 		$requestBody = [
 			'client' => $data[ 'client' ],

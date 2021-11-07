@@ -369,8 +369,6 @@ $( function () {
 		whatIsIncludedFields.$bookNow.data( "c", "pricing-modal-book-" + packageName );
 		whatIsIncludedFields.$bookNow.text( whatIsIncludedFields.$bookNow.data( "initial-text" ) );
 		whatIsIncludedFields.$bookNow.prop( "disabled", false );
-		loginPrompts.whatsIncluded.$phoneForm.hide();
-		loginPrompts.whatsIncluded.$OTPForm.hide();
 		// Un-hide the "Book Now" button region
 		whatIsIncludedFields.$bookNow.closest( ".js_login_trigger_region" ).show();
 
