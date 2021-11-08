@@ -41,7 +41,7 @@ contactUsForm.submit = function submit ( data ) {
 	person.setEmailAddress( data.emailAddress )
 	person.setSourcePoint( "Contact Us Form" )
 
-	Cupid.logPersonIn( person, { _trackSlug: "general-enquiry-form" } )
+	Cupid.logPersonIn( person, { trackSlug: "general-enquiry-form" } )
 
 	person.setExtendedAttributes( { requestToBeContactedMadeOn: getDateAndTimeStamp() } )
 	Cupid.savePerson( person )

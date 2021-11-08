@@ -48,7 +48,7 @@ pricingBookingForm.submit = function submit ( data ) {
 	let person = Cupid.getCurrentPerson( data.phoneNumber )
 	person.setSourcePoint( `Pricing Section - ${data.roomType} Room` )
 
-	Cupid.logPersonIn( person, { _trackSlug: `pricing-book-${data.roomType.toLowerCase()}` } )
+	Cupid.logPersonIn( person, { trackSlug: `pricing-book-${data.roomType.toLowerCase()}` } )
 
 	let interest = `${data.roomType} Room`
 	if ( ! person.hasInterest( interest ) ) {

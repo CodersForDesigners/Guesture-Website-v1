@@ -46,7 +46,7 @@ coworkingForm.submit = function submit ( data ) {
 	let person = Cupid.getCurrentPerson( data.phoneNumber )
 	person.setSourcePoint( "Coworking Seat" )
 
-	Cupid.logPersonIn( person, { _trackSlug: "coworking-seat" } )
+	Cupid.logPersonIn( person, { trackSlug: "coworking-seat" } )
 
 	let interest = "Coworking Seat"
 	if ( ! person.hasInterest( interest ) ) {

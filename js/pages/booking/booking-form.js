@@ -177,7 +177,7 @@ bookingForm.submit = function submit ( data ) {
 	person.setEmailAddress( data.emailAddress )
 	person.setSourcePoint( "Booking Form" )
 
-	Cupid.logPersonIn( person, { _trackSlug: "booking-form" } )
+	Cupid.logPersonIn( person, { trackSlug: "booking-form" } )
 
 	let unitDetails = JSON.parse( window.Base64.decode( ( new URLSearchParams( location.search ) ).get( "q" ) ) );
 	unitDetails.id = window.__BFS.unitId;

@@ -48,7 +48,7 @@ trialForm.submit = function submit ( data ) {
 	let person = Cupid.getCurrentPerson( data.phoneNumber )
 	person.setSourcePoint( "Book 3-day Trial" )
 
-	Cupid.logPersonIn( person, { _trackSlug: "three-day-trial" } )
+	Cupid.logPersonIn( person, { trackSlug: "three-day-trial" } )
 
 	let interest = "3-day Trial"
 	if ( ! person.hasInterest( interest ) ) {

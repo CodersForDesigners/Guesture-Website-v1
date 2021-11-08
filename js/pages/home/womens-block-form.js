@@ -46,7 +46,7 @@ womensBlockForm.submit = function submit ( data ) {
 	let person = Cupid.getCurrentPerson( data.phoneNumber )
 	person.setSourcePoint( "Women's Block" )
 
-	Cupid.logPersonIn( person, { _trackSlug: "block-women-room" } )
+	Cupid.logPersonIn( person, { trackSlug: "block-women-room" } )
 
 	let interest = "Women's-only Block"
 	if ( ! person.hasInterest( interest ) ) {
