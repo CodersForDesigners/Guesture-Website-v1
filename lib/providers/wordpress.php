@@ -23,7 +23,6 @@ class WordPress {
 	 * ----- When a post is queried and the `the_content` filter is applied to it, this is the reference where it attaches its data to
 	 */
 	public static $currentQueriedPostACF = [ ];
-	public static $currentQueriedPostId = null;
 
 
 
@@ -88,10 +87,16 @@ class WordPress {
 
 		$postObject = get_object_vars( $post );
 
-		// Render all the blocks in the `post_content` field
-		// $postObject[ 'post_content' ] = apply_filters( 'the_content', $postObject[ 'post_content' ] );
-		// Un-serialize ACF data that is stored in the `post_content_filtered` field
-		$postObject[ 'acf' ] = unserialize( $postObject[ 'post_content_filtered' ] ) ?: [ ];
+		// Reset the var where the ACF data will be stored
+			// 1. Fetch the ACF fields that are not blocks
+		if ( function_exists( 'get_fields' ) )
+			self::$currentQueriedPostACF = get_fields( $postObject[ 'ID' ] ) ?: [ ];
+			// 2. Fetch the ACF fields that are blocks
+		apply_filters( 'the_content', $postObject[ 'post_content' ] );
+		// Neatly store all the ACF fields in a sub-field
+		if ( function_exists( 'get_fields' ) )
+			$postObject[ 'acf' ] = self::$currentQueriedPostACF;
+
 		// Create the custom field stub
 		$postObject[ '__custom' ] = [ ];
 
@@ -153,7 +158,7 @@ class WordPress {
 		], $options ) );
 
 		$posts = [ ];
-		// $callback = is_callable( $callback ) ? $callback : ( fn ( $i ) => $i );
+		// $callback = is_callable( $callback ) ? $callback : ( fn ( $i ) => $i );	// if using PHP 8
 		$callback = is_callable( $callback ) ? $callback : ( function ( $i ) { return $i; } );
 
 		foreach ( $postsFromDB as &$post ) {
@@ -164,10 +169,16 @@ class WordPress {
 
 			$post = get_object_vars( $post );
 
-			// Render all the blocks in the `post_content` field
-			// $post[ 'post_content' ] = apply_filters( 'the_content', $post[ 'post_content' ] );
-			// Un-serialize ACF data that is stored in the `post_content_filtered` field
-			$post[ 'acf' ] = unserialize( $post[ 'post_content_filtered' ] ) ?: [ ];
+			// Reset the var where the ACF data will be stored
+				// 1. Fetch the ACF fields that are not blocks
+			if ( function_exists( 'get_fields' ) )
+				self::$currentQueriedPostACF = get_fields( $post[ 'ID' ] ) ?: [ ];
+				// 2. Fetch the ACF fields that are blocks
+			apply_filters( 'the_content', $post[ 'post_content' ] );
+			// Neatly store all the ACF fields in a sub-field
+			if ( function_exists( 'get_fields' ) )
+				$post[ 'acf' ] = self::$currentQueriedPostACF;
+
 			// Create the custom field stub
 			$post[ '__custom' ] = [ ];
 
@@ -197,10 +208,16 @@ class WordPress {
 
 		$post = $postFromDB;
 
-		// Render all the blocks in the `post_content` field
-		// $post[ 'post_content' ] = apply_filters( 'the_content', $post[ 'post_content' ] );
-		// Un-serialize ACF data that is stored in the `post_content_filtered` field
-		$post[ 'acf' ] = unserialize( $post[ 'post_content_filtered' ] ) ?: [ ];
+		// Reset the var where the ACF data will be stored
+			// 1. Fetch the ACF fields that are not blocks
+		if ( function_exists( 'get_fields' ) )
+			self::$currentQueriedPostACF = get_fields( $post[ 'ID' ] ) ?: [ ];
+			// 2. Fetch the ACF fields that are blocks
+		apply_filters( 'the_content', $post[ 'post_content' ] );
+		// Neatly store all the ACF fields in a sub-field
+		if ( function_exists( 'get_fields' ) )
+			$post[ 'acf' ] = self::$currentQueriedPostACF;
+
 		// Create the custom field stub
 		$post[ '__custom' ] = [ ];
 
@@ -226,10 +243,16 @@ class WordPress {
 
 		$post = get_object_vars( $postFromDB );
 
-		// Render all the blocks in the `post_content` field
-		// $post[ 'post_content' ] = apply_filters( 'the_content', $post[ 'post_content' ] );
-		// Un-serialize ACF data that is stored in the `post_content_filtered` field
-		$post[ 'acf' ] = unserialize( $post[ 'post_content_filtered' ] ) ?: [ ];
+		// Reset the var where the ACF data will be stored
+			// 1. Fetch the ACF fields that are not blocks
+		if ( function_exists( 'get_fields' ) )
+			self::$currentQueriedPostACF = get_fields( $post[ 'ID' ] ) ?: [ ];
+			// 2. Fetch the ACF fields that are blocks
+		apply_filters( 'the_content', $post[ 'post_content' ] );
+		// Neatly store all the ACF fields in a sub-field
+		if ( function_exists( 'get_fields' ) )
+			$post[ 'acf' ] = self::$currentQueriedPostACF;
+
 		// Create the custom field stub
 		$post[ '__custom' ] = [ ];
 

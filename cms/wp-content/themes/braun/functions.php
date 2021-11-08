@@ -52,17 +52,11 @@ use \BFS\Types;
 /* ~ Events ~ */
 Types\Events::setupGutenbergBlocks();
 Types\Events::setupContentInputForm();
-Types\Events::onSavingInstance();
-Types\Events::onRenderingBlock();
 
 /* ~ News ~ */
 Types\News::setupGutenbergBlocks();
 Types\News::setupContentInputForm();
-Types\News::onSavingInstance();
-Types\News::onRenderingBlock();
 
 /* ~ Deals ~ */
 Types\Deals::setupGutenbergBlocks();
 Types\Deals::setupContentInputForm();
-Types\Deals::onSavingInstance();
-Types\Deals::onRenderingBlock();
