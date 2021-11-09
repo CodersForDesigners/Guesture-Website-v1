@@ -14,10 +14,18 @@ class Router {
 
 	public static $httpResponseCode = 200;	// assume that it's going to go well
 
+	/*
+	 | Return the URL slug without the query parameters
+	 */
 	public static function getSanitizedURLSlug ( $path = null ) {
 		$pathString = $path ?: $_SERVER[ 'REQUEST_URI' ];
 		$pathStringMinusQueryParameters = strstr( $pathString, '?', true ) ?: $pathString;
 		return trim( $pathStringMinusQueryParameters, '/' );
+	}
+
+	public static function getHostnameURL () {
+		return ( HTTPS_SUPPORT ? 'https://' : 'http://' )
+				. ( $_SERVER[ 'HTTP_HOST' ] ?: $_SERVER[ 'SERVER_NAME' ] );
 	}
 
 	public static function route ( $path = null ) {

@@ -1,21 +1,5 @@
 <?php
 
-
-
-
-
-/*
- *
- * Set up global variables
- *
- */
-$siteUrl = ( HTTPS_SUPPORT ? 'https://' : 'http://' ) . ( $_SERVER[ 'HTTP_HOST' ] ?: $_SERVER[ 'SERVER_NAME' ] );
-if ( ! isset( $cmsHasBeenLoaded ) )
-	$cmsHasBeenLoaded = false;
-$postId = null;
-
-
-
 /*
  |
  | Prevent the page from being cached

@@ -3,11 +3,10 @@
 use BFS\CMS\WordPress;
 use BFS\Router;
 
-global $requestPath;
 global $post;	// WordPress' global post object
 
 // Get the absolute URL of the page
-$pageURL = $siteUrl . '/' . $requestPath;
+$pageURL = Router::getHostnameURL() . '/' . Router::getSanitizedURLSlug();
 
 
 // Construct the document's title ( for use in the <title></title> tag )
@@ -32,7 +31,7 @@ if ( WordPress::$isEnabled and /*WordPress::$onlySetupContext and*/ empty( $docu
 $metaDescription = $metaDescription ?? ( WordPress::$isEnabled ? WordPress::get( 'meta_description' ) : '' );
 $metaDescription = htmlentities( strip_tags( $metaDescription ) );
 $metaImage = $metaImage ?? WordPress::get( 'meta_image' ) ?? [ ];
-$metaImage = $metaImage[ 'sizes' ][ 'medium' ] ?? $metaImage[ 'sizes' ][ 'small' ] ?? $metaImage[ 'sizes' ][ 'thumbnail' ] ?? $metaImage[ 'url' ] ?? ( $siteUrl . '/media/social-logo.png' );
+$metaImage = $metaImage[ 'sizes' ][ 'medium' ] ?? $metaImage[ 'sizes' ][ 'small' ] ?? $metaImage[ 'sizes' ][ 'thumbnail' ] ?? $metaImage[ 'url' ] ?? '/media/social-logo.png';
 
 
 $metaCharset = WordPress::$isEnabled ? get_bloginfo( 'charset' ) : 'utf-8';
