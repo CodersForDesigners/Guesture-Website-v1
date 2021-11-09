@@ -8,7 +8,7 @@ if ( HTTPS_SUPPORT )
 else
 	$httpProtocol = 'http';
 
-if ( ! empty( CMS_REMOTE_ADDRESS ) ) {
+if ( CMS_FETCH_MEDIA_REMOTELY and !empty( CMS_REMOTE_ADDRESS ) ) {
 	$remoteAddress = $httpProtocol . '://' . CMS_REMOTE_ADDRESS . $_SERVER[ 'REQUEST_URI' ];
 	return header( 'Location: ' . $remoteAddress, true, 302 );
 }
