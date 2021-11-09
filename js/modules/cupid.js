@@ -171,7 +171,7 @@ Cupid.logPersonIn = function logPersonIn ( person, options ) {
 		PersonLogger.newPerson( person )
 		// Simulate a visit to the track URL
 		if ( options.trackSlug )
-			trackPageVisit( name )
+			trackPageVisit( options.trackSlug )
 		Cupid.savePerson( person )
 		return
 	}
@@ -184,7 +184,7 @@ Cupid.logPersonIn = function logPersonIn ( person, options ) {
 		PersonLogger.newPerson( person )
 		// Simulate a visit to the track URL
 		if ( options.trackSlug )
-			trackPageVisit( name )
+			trackPageVisit( options.trackSlug )
 		Cupid.savePerson( person )
 		return
 	}
